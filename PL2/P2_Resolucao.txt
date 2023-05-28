@@ -1,0 +1,45 @@
+9600 bits per second
+8 Data bits
+No Parity
+1 Stop bits
+No flow control
+enable
+
+===========================
+Exercicio 1
+===========================
+
+Configurar Router
+
+config t
+access-list 25 permit 192.168.X.0 0.0.0.255
+ip nat inside source list 25 interface Ethernet0 overload
+interface FastEthernet0
+ip address 10.254.0.N 255.255.255.0
+no shutdown
+ip nat outside
+exit
+interface Ethernet0
+ip address 192.168.X.254 255.255.255.0
+no shutdown
+ip nat inside
+end
+
+Configurar o PC
+
+IP - 192.168.X.100
+Mask - 255.255.255.0
+Default - 192.168.X.254
+
+
+ping 10.254.0.254
+
+===========================
+Exercicio 2
+===========================
+
+
+config t
+
+ip nat pool net-TESTE 10.254.0.(N*16+2) 10.254.0.(N*16+5) netmask 255.255.255.0
+ip nat inside source list 25 pool net-TESTE overload
